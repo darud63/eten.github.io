@@ -1,10 +1,7 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { firebaseConfig } from './firebase-config.js';
+import app from './firebase-config.js';
 
-// Инициализация приложения
-const app = initializeApp(firebaseConfig);
+// Инициализация Firestore
 const db = getFirestore(app);
 
 // Простая авторизация
