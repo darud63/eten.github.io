@@ -1,14 +1,13 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { firebaseConfig } from './firebase-config.js';
 
-firebase.initializeApp(firebaseConfig); 
-const db = firebase.firestore();
+// Инициализация приложения
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-// Простая авторизация с логином через файл
+// Простая авторизация
 const validUser = {
     username: "admin",
     password: "12345"
@@ -28,7 +27,8 @@ document.getElementById('login-form').onsubmit = function(e) {
     }
 };
 
-db.collection('test').add({
+// Добавляем данные в Firestore
+addDoc(collection(db, "test"), {
     message: "Hello Firebase!"
 }).then(() => {
     console.log("Data successfully added!");
