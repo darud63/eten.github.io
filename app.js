@@ -4,68 +4,23 @@ import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAERuRbz1wE_b34wZgmb_nbNMGF4RpPaF4",
-  authDomain: "eten-373bf.firebaseapp.com",
-  databaseURL: "https://eten-373bf-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "eten-373bf",
-  storageBucket: "eten-373bf.firebasestorage.app",
-  messagingSenderId: "21158034114",
-  appId: "1:21158034114:web:0cc51995fcef064f19595b",
-  measurementId: "G-5MMWNKP6PB"
+
+// Простая авторизация с логином через файл
+const validUser = {
+    username: "admin",
+    password: "12345"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
-// Инициализация Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const database = firebase.database(app);  // Инициализация базы данных
-const auth = firebase.auth(app);  // Инициализация аутентификации
-
-const nicknameInput = document.getElementById("nickname");
-const messageInput = document.getElementById("message");
-const sendMessageButton = document.getElementById("send-message");
-const chatBox = document.getElementById("chat-box");
-
-async function getIpAddress() {
-    const response = await fetch("https://api.ipify.org?format=json");
-    const data = await response.json();
-    return data.ip;
-}
-
-async function sendMessage() {
-    const nickname = nicknameInput.value;
-    const message = messageInput.value;
-    const ip = await getIpAddress();
-
-    if (!nickname || !message) return;
-
-    const userRef = firebase.database().ref("users/" + ip);
-    const snapshot = await userRef.once("value");
-    if (!snapshot.exists()) {
-        await userRef.set({ nickname });
+document.getElementById('login-form').onsubmit = function(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const errorMessage = document.getElementById('error-message');
+    
+    if (username === validUser.username && password === validUser.password) {
+        window.location.href = 'main.html';
+    } else {
+        errorMessage.textContent = 'Invalid login or password';
     }
-
-    const newMessageRef = firebase.database().ref("messages").push();
-    await newMessageRef.set({
-        nickname,
-        message,
-        timestamp: Date.now(),
-        ip
-    });
-
-    messageInput.value = "";  // Очищаем поле ввода
-}
-
-firebase.database().ref("messages").orderByChild("timestamp").on("child_added", (snapshot) => {
-    const data = snapshot.val();
-    const messageDiv = document.createElement("div");
-    messageDiv.textContent = `${data.nickname}: ${data.message}`;
-    chatBox.appendChild(messageDiv);
-});
-
-sendMessageButton.addEventListener("click", sendMessage);
+};
