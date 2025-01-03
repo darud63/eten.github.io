@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firebase Chat</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <title>Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-        <input type="text" id="nickname" placeholder="Enter your nickname" />
-        <textarea id="message" placeholder="Enter your message"></textarea>
-        <button id="send-message">Send</button>
+    <div class="login-container">
+        <h1>Calorie Tracker</h1>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p id="error-message"></p>
     </div>
-    <div id="chat-box"></div>
 
     <script src="app.js"></script>
 </body>
