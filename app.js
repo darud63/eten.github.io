@@ -5,7 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { firebaseConfig } from './firebase-config.js';
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig); 
 const db = firebase.firestore();
 
 // Простая авторизация с логином через файл
