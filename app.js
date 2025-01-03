@@ -24,3 +24,11 @@ document.getElementById('login-form').onsubmit = function(e) {
         errorMessage.textContent = 'Invalid login or password';
     }
 };
+
+db.collection('test').add({
+    message: "Hello Firebase!"
+}).then(() => {
+    console.log("Data successfully added!");
+}).catch((error) => {
+    console.error("Error adding data: ", error);
+});
