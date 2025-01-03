@@ -1,8 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-
 // Firebase конфигурация
-export const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyAERuRbz1wE_b34wZgmb_nbNMGF4RpPaF4",
   authDomain: "eten-373bf.firebaseapp.com",
   databaseURL: "https://eten-373bf-default-rtdb.europe-west1.firebasedatabase.app",
@@ -13,8 +10,6 @@ export const firebaseConfig = {
   measurementId: "G-5MMWNKP6PB"
 };
 
-// Экспортируем инициализацию Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
-export default app;
+// Инициализация Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
