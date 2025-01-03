@@ -18,12 +18,41 @@
         <p id="error-message"></p>
     </div>
 
-    <!-- Firebase через CDN -->
-    <script type="module" src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-    
-    <!-- Конфиг и приложение -->
-    <script type="module" src="./firebase-config.js"></script>
-    <script type="module" src="./app.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+    <!-- Конфиг Firebase -->
+    <script src="./firebase-config.js"></script>
+
+    <!-- Основное приложение -->
+    <script>
+        const validUser = {
+            username: "admin",
+            password: "12345"
+        };
+
+        document.getElementById('login-form').onsubmit = function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            
+            if (username === validUser.username && password === validUser.password) {
+                window.location.href = 'main.html';
+            } else {
+                errorMessage.textContent = 'Invalid login or password';
+            }
+        };
+
+        db.collection('test').add({
+            message: "Hello Firebase!"
+        }).then(() => {
+            console.log("Data successfully added!");
+        }).catch((error) => {
+            console.error("Error adding data: ", error);
+        });
+    </script>
 </body>
 </html>
